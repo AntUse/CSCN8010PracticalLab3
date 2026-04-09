@@ -309,32 +309,9 @@ Both models struggled with:
 - **Confidence thresholding:** Flag predictions <70% for review
 - **Ensemble approach:** Combine both models for critical applications
 
-## 🔮 Future Work
-
-### Short-term Improvements
-1. **Fine-tune VGG16 top layers** with very low learning rate
-2. **Try other architectures**: ResNet50, EfficientNet, MobileNetV2
-3. **Advanced augmentation**: Mixup, CutMix, AutoAugment
-4. **Hyperparameter optimization**: Grid search or Bayesian optimization
-5. **Grad-CAM visualization**: Understand model attention regions
-
-### Long-term Extensions
-1. **Multi-class classification**: Extend to specific breeds
-2. **Object detection**: Implement YOLO or Faster R-CNN
-3. **Active learning pipeline**: Request labels for uncertain predictions
-4. **Model compression**: Pruning and quantization for mobile deployment
-5. **Production deployment**: REST API with Docker containerization
-6. **Real-time application**: Mobile app or web interface
-
 ## 👥 Contributors
 
-- **[Your Name]** - [Your Student ID] - [Your Email]
-- **[Partner Name]** - [Partner Student ID] - [Partner Email] *(if applicable)*
-
-**Course:** CSCN8010 - Deep Learning  
-**Institution:** [Your University]  
-**Instructor:** [Instructor Name]  
-**Date:** April 2026
+- **[Your Name]** - 8730956 - TRUONG MINH THUAN
 
 ## 📄 License
 
@@ -355,13 +332,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 3. Keras Documentation: https://keras.io/
 4. TensorFlow Transfer Learning Guide: https://www.tensorflow.org/tutorials/images/transfer_learning
 
-## 📧 Contact
 
-For questions or feedback, please contact:
-- Email: [your.email@example.com]
-- GitHub Issues: [Repository Issues Page]
-
----
 
 **⭐ If you find this project helpful, please consider giving it a star!**
 

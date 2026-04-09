@@ -113,3 +113,5 @@ kaggle.json
 
 # Notebooks backup
 *.ipynb_bak
+
+.env
