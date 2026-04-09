@@ -4,7 +4,7 @@
 [![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange.svg)](https://www.tensorflow.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-A comprehensive deep learning project comparing custom CNN architectures with transfer learning approaches for binary image classification on the Dogs vs Cats dataset.
+A deep learning project comparing a custom CNN architecture against transfer learning with VGG16 for binary image classification on the Dogs vs Cats dataset.
 
 ## 📋 Table of Contents
 
@@ -22,20 +22,20 @@ A comprehensive deep learning project comparing custom CNN architectures with tr
 
 ## 🎯 Project Overview
 
-This project demonstrates the practical application of deep learning for computer vision tasks, specifically:
+This project explores deep learning for computer vision, specifically examining:
 
-1. **Building a custom CNN from scratch** - Designing and training a convolutional neural network
-2. **Implementing transfer learning** - Fine-tuning a pre-trained VGG16 model
-3. **Comprehensive model evaluation** - Using multiple metrics and visualization techniques
-4. **Error analysis** - Understanding model failures and limitations
+1. **Building a custom CNN from scratch** — Designing and training a convolutional neural network without pre-trained weights
+2. **Implementing transfer learning** — Adapting a pre-trained VGG16 model to the binary classification task
+3. **Comprehensive model evaluation** — Assessing performance across multiple metrics and visualization techniques
+4. **Error analysis** — Investigating model failures and their underlying causes
 
 ### Learning Objectives
 
-- Understand CNN architecture design principles
-- Apply transfer learning techniques effectively
-- Implement data augmentation for improved generalization
-- Conduct thorough model evaluation and comparison
-- Perform error analysis on misclassified examples
+- Understand the principles behind CNN architecture design
+- Apply transfer learning effectively on limited training data
+- Use data augmentation to improve generalization
+- Evaluate and compare models using industry-standard metrics
+- Identify systematic failure patterns through error analysis
 
 ## 📊 Dataset
 
@@ -47,13 +47,13 @@ This project demonstrates the practical application of deep learning for compute
 - **Test:** 500 images (250 dogs + 250 cats)
 
 ### Data Characteristics
-- **Image dimensions:** Variable (200-500 pixels typical)
+- **Image dimensions:** Variable (200–500 pixels typical)
 - **Standardized input size:** 150×150×3 (RGB)
 - **Format:** JPEG
 - **Classes:** Binary (0 = Cats, 1 = Dogs)
 
 ### Data Preprocessing
-- Rescaling: Pixel values normalized to [0, 1]
+- **Rescaling:** Pixel values normalized to [0, 1]
 - **Augmentation (training only):**
   - Rotation: ±40°
   - Width/Height shift: ±20%
@@ -80,7 +80,7 @@ git clone https://github.com/thuan20132000/CSCN8010_dogs-vs-cats-classification.
 cd CSCN8010_dogs-vs-cats-classification
 ```
 
-2. **Create virtual environment (recommended):**
+2. **Create a virtual environment (recommended):**
 ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
@@ -93,8 +93,8 @@ pip install -r requirements.txt
 
 4. **Download the dataset:**
    - Download from [Kaggle](https://www.kaggle.com/c/dogs-vs-cats/data)
-   - Extract to `data/train/` directory
-   - The notebook will automatically organize the data into train/val/test splits
+   - Extract to the `data/train/` directory
+   - The notebook will automatically split the data into train/validation/test sets
 
 ### Requirements
 
@@ -168,7 +168,7 @@ Block 4: Conv2D(128) → MaxPool → Dropout(0.25)
 Flatten → Dense(512) → Dense(256) → Dense(1, sigmoid)
 ```
 
-**Total Parameters:** ~3-5 million (all trainable)
+**Total Parameters:** ~3–5 million (all trainable)
 
 **Training Configuration:**
 - Optimizer: Adam (lr=0.001)
@@ -180,8 +180,8 @@ Flatten → Dense(512) → Dense(256) → Dense(1, sigmoid)
 ### 2. VGG16 Transfer Learning
 
 **Transfer Learning Strategy:**
-- Pre-trained VGG16 base (ImageNet weights) - **frozen**
-- Custom classification head - **trainable**
+- Pre-trained VGG16 base (ImageNet weights) — **frozen**
+- Custom classification head — **trainable**
 - Global Average Pooling instead of Flatten
 
 **Architecture:**
@@ -209,21 +209,24 @@ Dense(1, sigmoid)
 
 ## 📈 Results
 
-### Model Performance Comparison
+### Actual Model Performance (Test Set — 500 Samples, 5 Epochs, CPU Only)
 
 | Metric | Custom CNN | VGG16 Transfer | Winner |
 |--------|-----------|----------------|--------|
-| **Test Accuracy** | ~85-90% | ~92-95% | VGG16 ✓ |
-| **Precision** | ~0.87-0.92 | ~0.93-0.96 | VGG16 ✓ |
-| **Recall** | ~0.85-0.91 | ~0.91-0.95 | VGG16 ✓ |
-| **F1-Score** | ~0.86-0.91 | ~0.92-0.95 | VGG16 ✓ |
-| **ROC AUC** | ~0.90-0.94 | ~0.95-0.98 | VGG16 ✓ |
-| **Training Time** | ~30-45 min | ~20-30 min | VGG16 ✓ |
-| **Convergence** | ~25-35 epochs | ~15-20 epochs | VGG16 ✓ |
-| **Model Size** | ~15-20 MB | ~60-65 MB | Custom ✓ |
+| **Test Accuracy** | 0.508 (254/500) | **0.838 (419/500)** | VGG16 ✓ |
+| **Precision (Dogs)** | 0.5068 | **0.8073** | VGG16 ✓ |
+| **Recall (Dogs)** | 0.5920 | **0.8880** | VGG16 ✓ |
+| **F1-Score (Dogs)** | 0.5461 | **0.8457** | VGG16 ✓ |
+| **Precision (Cats)** | 0.5096 | **0.8756** | VGG16 ✓ |
+| **Recall (Cats)** | 0.4240 | **0.7880** | VGG16 ✓ |
+| **F1-Score (Cats)** | 0.4629 | **0.8295** | VGG16 ✓ |
+| **ROC AUC** | 0.5202 | **0.9212** | VGG16 ✓ |
+| **PR AUC** | 0.5409 | **0.9271** | VGG16 ✓ |
+| **Val Accuracy (Ep. 5)** | 0.536 | **0.880** | VGG16 ✓ |
+| **Model Size** | ~15–20 MB | ~60–65 MB | Custom ✓ |
 | **Inference Speed** | Faster | Slower | Custom ✓ |
 
-*Note: Actual results may vary based on hardware and random initialization*
+> Training was performed on CPU (~12 min/epoch), limited to 5 epochs per model.
 
 ### Key Visualizations
 
@@ -242,20 +245,20 @@ The notebook includes:
 
 1. **Start Jupyter Notebook:**
 ```bash
-jupyter notebook dogs_vs_cats_classification.ipynb
+jupyter notebook practical_lab3.ipynb
 ```
 
 2. **Execute cells sequentially:**
    - The notebook is designed to run from top to bottom
-   - First execution will organize the dataset
-   - Training both models takes approximately 1 hour on GPU
+   - The first execution will organize the dataset
+   - Training both models takes approximately 2 hours on CPU, ~1 hour on GPU
 
 ### Running Individual Sections
 
-You can run specific sections:
+You can run specific sections independently:
 
 ```python
-# Just EDA
+# Exploratory Data Analysis only
 # Run cells in Section 3
 
 # Train only Custom CNN
@@ -265,7 +268,7 @@ You can run specific sections:
 # Run cells in Section 4.2
 
 # Evaluation only (requires saved models)
-# Run Section 5 with pre-trained models
+# Run Section 5 with pre-trained model files
 ```
 
 ### Using Pre-trained Models
@@ -285,37 +288,34 @@ predictions = custom_cnn.predict(test_generator)
 
 ## 🔍 Key Findings
 
-### 1. Transfer Learning Superiority
-- **VGG16 outperformed custom CNN** by 5-7% in accuracy
-- Faster convergence (50% fewer epochs)
-- Better generalization with same amount of training data
+### 1. Transfer Learning is Essential on Limited Data
+VGG16 outperformed the custom CNN by 33.0 percentage points (83.8% vs 50.8%). The custom CNN's ROC AUC of 0.52 — barely above random — confirms it failed to learn meaningful features within the constraints of 5 CPU epochs.
 
-### 2. Data Efficiency
-- With only 4,000 training images, transfer learning is crucial
-- Pre-trained ImageNet features transfer well to binary classification
-- Custom CNN showed overfitting signs without extensive augmentation
+### 2. VGG16 Converged Rapidly
+VGG16 reached 70.8% validation accuracy after just the first epoch and climbed to 88.0% by epoch 3, with a final ROC AUC of 0.921 and PR AUC of 0.927. These scores indicate strong, reliable discrimination across all confidence thresholds.
 
-### 3. Error Patterns
-Both models struggled with:
-- Unusual camera angles
-- Partially occluded subjects
-- Multiple animals in frame
-- Poor lighting conditions
-- Very close-up or very distant shots
+### 3. Custom CNN Class Bias
+The custom CNN showed slightly higher recall for dogs (0.592) than cats (0.424), suggesting a mild default bias toward one class — a sign the model had not meaningfully converged and was not making informed predictions.
 
-### 4. Practical Insights
-- **For production:** Use VGG16 if accuracy is paramount
-- **For edge devices:** Use custom CNN for smaller footprint
-- **Confidence thresholding:** Flag predictions <70% for review
-- **Ensemble approach:** Combine both models for critical applications
+### 4. CPU Training Was the Primary Bottleneck
+Each epoch took approximately 12–15 minutes on CPU. This limited both models to 5 epochs, which is insufficient for the custom CNN to converge from scratch. With GPU access and 20–30 epochs, the custom CNN would likely reach 75–85% accuracy.
+
+### 5. Shared Error Patterns
+Both models struggled with the same difficult images: unusual camera angles, partially occluded subjects, poor lighting, extreme close-ups or distant shots, and frames with multiple animals — issues rooted in dataset ambiguity rather than model architecture.
+
+### 6. Practical Guidance
+- **For production use:** VGG16 is the only viable option in its current form
+- **Do not deploy the custom CNN** at 50.8% accuracy — it offers no predictive value over a coin flip
+- **To close the gap:** GPU training for 20–30 epochs would allow the custom CNN to demonstrate its true potential
+- **Next step for VGG16:** Unfreeze the top convolutional blocks for fine-tuning to push accuracy toward 90–95%
 
 ## 👥 Contributors
 
-- TRUONG MINH THUAN - 8730956
+- ANTHONY IZEVBOKUN
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
@@ -331,10 +331,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 2. Elson, J., Douceur, J., Howell, J., & Saul, J. (2007). Asirra: A CAPTCHA that exploits interest-aligned manual image categorization. ACM CCS.
 3. Keras Documentation: https://keras.io/
 4. TensorFlow Transfer Learning Guide: https://www.tensorflow.org/tutorials/images/transfer_learning
-
-
-
-**⭐ If you find this project helpful, please consider giving it a star!**
 
 ---
 

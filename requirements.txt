@@ -1,5 +1,5 @@
 # Deep Learning Framework
-tensorflow>=2.10.0
+tensorflow
 keras>=2.10.0
 
 # Core Scientific Computing
